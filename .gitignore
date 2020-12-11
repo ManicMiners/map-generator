@@ -3,3 +3,6 @@ node_modules
 /packages/*/dist
 /yarn-error.log
 /.yarn/install-state.gz
+/.yarn/build-state.yml
+/.yarn/unplugged
+
