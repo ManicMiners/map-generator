@@ -18,6 +18,7 @@
     "@types/webpack": "^4.41.22",
     "clipanion": "^2.5.0",
     "gif-frames": "^1.0.1",
+    "got": "^11.8.1",
     "hashed": "^5.0.0",
     "lodash": "^4.17.20",
     "mobx": "^5.15.7",
