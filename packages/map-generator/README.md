@@ -1,16 +1,19 @@
-To develop the map generator locally:
+## How to write code for the map generator
 
+All scripts are run with `yarn`.  `yarn` requires `node`.  Both are included in this repository, so you shouldn't need to install anything if you're on Windows.
+
+Start a webserver:
 ```
-# install dependencies using `npm`.  You'll need to have node and npm installed; this is beyond the scope of this readme
-npm install
-../node_modules/.bin/webpack-dev-server
-# Watch the terminal for compile errors.
-# Open localhost:8080 in your browser.
+yarn start
 ```
+
+This will start the map generator on `localhost:8080`.  When you change code in your editor,
+the browser should reload automatically.
 
 To build the map generator:
 
 ```
-../node_modules/.bin/webpack
-# The map generator is only 2 files: index.html and browser.js
+yarn build
 ```
+
+The map generator compiles into only 2 files: `index.html` and `browser.js`

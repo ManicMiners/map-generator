@@ -5,9 +5,8 @@
     "vscode-extension"
   ],
   "scripts": {
-    "install-both": "npm install && cd vscode-extension && npm install",
-    "build": "npm run build-extension",
-    "build-extension": "cd vscode-extension && npm run build"
+    "start": "webpack-dev-server",
+    "build": "webpack"
   },
   "dependencies": {
     "@types/jquery": "^3.5.1",

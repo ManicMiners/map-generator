@@ -1,13 +1,6 @@
-Needs `node` and `npm` installed.
+## Manic Miners web-based map generator
 
-# VSCode extension
+Randomly generate maps for Manic Miners.
+## How to use the map generator
 
-To rebuild the VSCode extension:
-
-```
-npm run build
-```
-
-It'll spit out a `.vsix` you can install in VSCode.
-
-In the future, we can auto-publish to the extension marketplace.  For now, sharing the `.vsix` file is good enough.
+https://manicminers.github.io/map-generator
