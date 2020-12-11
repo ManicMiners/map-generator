@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+
+# This script runs on GitHub Actions and publishes new versions of the Map Generator
+
+# Setup git
+git config user.name github-actions
+git config user.email github-actions@github.com
+
+# Build
+yarn
+yarn build
+
+# Add
+git fetch
+# More explicit form of `git worktree add gh-pages gh-pages`
+git worktree add --track -b gh-pages gh-pages origin/gh-pages
+cp ./packages/map-generator/index.html ./gh-pages/index.html
+cp ./packages/map-generator/browser.js ./gh-pages/browser.js
+cd gh-pages
+git add index.html browser.js
+
+# Commit and push
+git commit -m 'auto-publish gh-pages'
+git push

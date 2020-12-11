@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        // "noEmit": true,
+        "moduleResolution": "node",
+        "allowJs": true,
+        "maxNodeModuleJsDepth": 1,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "outDir": "dist",
+        "target": "es6",
+        "jsx": "react",
+        "preserveConstEnums": true,
+        "strict": true,
+        "sourceMap": true,
+        "useDefineForClassFields": true
+    },
+    "include": [
+        "*.ts",
+        "map-generator/*.ts",
+        "map-generator/python-shims/*.ts"
+    ]
+}
