@@ -30,7 +30,7 @@ function onLoad() {
             const serializeParameters = {} as Partial<Parameters>;
             for(const [key, value] of Object.entries(parameters)) {
                 if(isNumber(value) || isString(value) || isBoolean(value)) {
-                    serializeParameters[key] = value;
+                    (serializeParameters as any)[key] = value;
                 }
             }
             return serializeParameters;
@@ -67,8 +67,8 @@ class UIRoot extends React.Component<UIRoot.Params> {
                 alignContent: 'stretch'
             }}>
                 <div>{
-                    Array.from(inputs.entries()).map(([name, render]) => {
-                        return <p style={{
+                    Array.from(inputs.entries()).map(([name, render], i) => {
+                        return <p key={i} style={{
                             whiteSpace: 'nowrap'
                         }}>
                             <label style={{
@@ -78,10 +78,10 @@ class UIRoot extends React.Component<UIRoot.Params> {
                             {
                                 render({
                                     onChange(e) {
-                                        parameters[name] = parse(name, e.target.value);
+                                        (parameters as any)[name as any] = parse(name, e.target.value);
                                         logParams();
                                     },
-                                    value: parameters[name]
+                                    value: (parameters as any)[name]
                                 })
                             }
                         </p>;

@@ -10,7 +10,9 @@
         "target": "es6",
         "jsx": "react",
         "preserveConstEnums": true,
-        "strict": true
+        "strict": true,
+        "sourceMap": true,
+        "useDefineForClassFields": true
     },
     "include": [
         "*.ts",

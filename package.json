@@ -1,42 +1,39 @@
 {
+  "private": true,
   "workspaces": [
-    "map-lib",
-    "map-generator",
-    "vscode-extension"
+    "packages/*"
   ],
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack"
+    "start": "yarn workspace @manicminers/map-generator start",
+    "build": "yarn workspace @manicminers/map-generator build"
   },
   "dependencies": {
-    "@types/jquery": "^3.5.1",
-    "@types/lodash": "^4.14.159",
-    "@types/node": "^14.11.1",
-    "@types/react": "^16.9.49",
+    "@types/jquery": "^3.5.5",
+    "@types/lodash": "^4.14.165",
+    "@types/node": "^14.14.12",
+    "@types/react": "^17.0.0",
     "@types/stream-to-array": "^2.3.0",
-    "@types/webpack": "^4.41.22",
-    "clipanion": "^2.5.0",
+    "@types/webpack": "^4.41.25",
+    "clipanion": "^2.6.2",
     "gif-frames": "^1.0.1",
     "got": "^11.8.1",
     "hashed": "^5.0.0",
     "lodash": "^4.17.20",
-    "mobx": "^5.15.7",
-    "mobx-react": "^6.3.0",
+    "mobx": "^6.0.4",
+    "mobx-react": "^7.0.5",
     "outdent": "^0.7.1",
     "png-js": "^1.0.0",
-    "prettier": "^2.1.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "prettier": "^2.2.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "stream-to": "^2.0.0",
     "stream-to-array": "^2.3.0",
-    "ts-loader": "^8.0.3",
-    "ts-node": "^9.0.0",
-    "tslib": "^2.0.1",
-    "typescript": "^4.0.2",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0",
-    "yargs": "^16.0.3",
-    "yup": "^0.29.3"
+    "ts-loader": "^8.0.12",
+    "ts-node": "^9.1.1",
+    "tslib": "^2.0.3",
+    "typescript": "^4.1.2",
+    "webpack": "^5.10.0",
+    "yargs": "^16.2.0",
+    "yup": "^0.32.8"
   }
 }

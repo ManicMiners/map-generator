@@ -1,17 +1,17 @@
 import { Biome } from "./map-generator";
 import * as React from 'react';
 import * as random from "./python-shims/random";
-import { observable } from "mobx";
+import { observable, makeObservable } from "mobx";
 
 export const inputs = new Map<string, InputRenderFn>();
 export const inputParsedAs = new Map<string, 'number'>();
 function Input(render: InputRenderFn) {
-    const Input: PropertyDecorator = (target: any, propertyKey: string) => {
+    const Input/*: PropertyDecorator*/ = (target: any, propertyKey: string) => {
         inputs.set(propertyKey, render);
     }
     return Input;
 }
-const ParseAsNumber: PropertyDecorator = (target: any, propertyKey: string) => {
+const ParseAsNumber/*: PropertyDecorator*/ = (target: any, propertyKey: string) => {
     inputParsedAs.set(propertyKey, 'number');
 };
 
@@ -30,15 +30,19 @@ const densityInputRender: InputRenderFn = (bindings) => <input type="range" min=
 const sizeInputRender: InputRenderFn = (bindings) => <input type="number" min="8" max="256" step="8" {...bindings} ></input>;
 
 export class Parameters {
-    // @observable
-    // @ParseAsNumber
-    // @Input(sizeInputRender)
-    length: number;
+    constructor() {
+        makeObservable(this);
+    }
 
     // @observable
     // @ParseAsNumber
     // @Input(sizeInputRender)
-    width: number;
+    length!: number;
+
+    // @observable
+    // @ParseAsNumber
+    // @Input(sizeInputRender)
+    width!: number;
 
     @observable
     @ParseAsNumber
@@ -48,42 +52,42 @@ export class Parameters {
     @observable
     @ParseAsNumber
     @Input(densityInputRender)
-    solidDensity: number;
+    solidDensity!: number;
 
     @observable
     @ParseAsNumber
     @Input(densityInputRender)
-    wallDensity: number;
+    wallDensity!: number;
 
     @observable
     @ParseAsNumber
     @Input(densityInputRender)
-    oreDensity: number;
+    oreDensity!: number;
 
     @observable
     @ParseAsNumber
     @Input(densityInputRender)
-    crystalDensity: number;
+    crystalDensity!: number;
     
     @observable
     @ParseAsNumber
     @Input(densityInputRender)
-    oreSeamDensity: number;
+    oreSeamDensity!: number;
 
     @observable
     @ParseAsNumber
     @Input(densityInputRender)
-    crystalSeamDensity: number;
+    crystalSeamDensity!: number;
 
     @observable
     @ParseAsNumber
     @Input(densityInputRender)
-    rechargeSeamDensity: number;
+    rechargeSeamDensity!: number;
 
     @observable
     @ParseAsNumber
     @Input(bindings => <input type="number" {...bindings}></input>)
-    floodLevel: number;
+    floodLevel!: number;
 
     @observable
     @Input(bindings =>
@@ -97,45 +101,45 @@ export class Parameters {
     @observable
     @ParseAsNumber
     @Input(densityInputRender)
-    flowDensity: number;
+    flowDensity!: number;
 
     @observable
     @ParseAsNumber
     @Input(bindings => <input type="number" {...bindings}></input>)
-    flowInterval: number;
+    flowInterval!: number;
 
     @observable
     @ParseAsNumber
     @Input(bindings => <input type="number" {...bindings}></input>)
-    preFlow: number;
+    preFlow!: number;
 
     @observable
     @ParseAsNumber
-    landslideDensity: number;
-
-    @observable
-    @ParseAsNumber
-    @Input(bindings => <input type="number" {...bindings}></input>)
-    landslideInterval: number;
-
-    @observable
-    @ParseAsNumber
-    slugDensity: number;
+    landslideDensity!: number;
 
     @observable
     @ParseAsNumber
     @Input(bindings => <input type="number" {...bindings}></input>)
-    terrain: number;
+    landslideInterval!: number;
+
+    @observable
+    @ParseAsNumber
+    slugDensity!: number;
 
     @observable
     @ParseAsNumber
     @Input(bindings => <input type="number" {...bindings}></input>)
-    smoothness: number;
+    terrain!: number;
 
     @observable
     @ParseAsNumber
     @Input(bindings => <input type="number" {...bindings}></input>)
-    oxygen: number;
+    smoothness!: number;
+
+    @observable
+    @ParseAsNumber
+    @Input(bindings => <input type="number" {...bindings}></input>)
+    oxygen!: number;
 
     @observable
     @Input(bindings =>
@@ -147,19 +151,19 @@ export class Parameters {
     )
     biome?: Biome;
     // @Input(bindings => <input type="checkbox" {...bindings}></input>)
-    stats: boolean;
+    stats!: boolean;
     // @Input(bindings => <input type="checkbox" {...bindings}></input>)
-    save: boolean;
+    save!: boolean;
 
     @observable
     @Input(bindings => <input type="text" {...bindings}></input>)
-    name: string;
-    show: boolean | 'height' | 'both';
+    name!: string;
+    show!: boolean | 'height' | 'both';
 }
 export function generateDefaultParameters(): Parameters {
   return {
-    length: undefined,
-    width: undefined,
+    length: undefined as any as number,
+    width: undefined as any as number,
     size: 64,
     solidDensity: random.random() * 0.3 + 0.2,
     wallDensity: random.random() * 0.3 + 0.3,
