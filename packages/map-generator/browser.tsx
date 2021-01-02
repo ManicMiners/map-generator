@@ -1,6 +1,7 @@
 import { observer } from "mobx-react"
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { Mapgen } from './mapgen';
 import { attemptGenerationWithRetries, mapgen, MapGenResult } from "./map-generator";
 import { generateDefaultParameters, inputs, Parameters, parse } from "./parameters";
 import * as hashed from 'hashed';
@@ -15,6 +16,9 @@ function TI<T>() { return function<I extends T>(i: I) {return i} }
 
 window.addEventListener('load', onLoad);
 function onLoad() {
+
+    window.map_generator = new Mapgen();
+
     randomizeParams();
 
     {
@@ -22,7 +26,7 @@ function onLoad() {
         function listener(newState: UrlHashState) {
             Object.assign(parameters, newState);
         }
-        
+
         // register a state provider
         const update: (state: UrlHashState) => void = hashed.register(getSerializedParameters(), listener);
 
@@ -35,7 +39,7 @@ function onLoad() {
             }
             return serializeParameters;
         }
-        
+
         // When the state of your application changes, update the hash.
         autorun(() => {
             const serializedParameters = getSerializedParameters();

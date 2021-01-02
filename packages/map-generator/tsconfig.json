@@ -5,6 +5,9 @@
     },
     "include": [
         "*.ts",
-        "python-shims/*.ts", "parameters.tsx", "browser.tsx"
+        "python-shims/*.ts",
+        "parameters.tsx",
+        "browser.tsx",
+        "mapgen.js"
     ]
 }
