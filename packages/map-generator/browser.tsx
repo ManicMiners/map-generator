@@ -43,7 +43,12 @@ class UIRoot extends React.Component<UIRoot.Params> {
                 alignItems: 'stretch',
                 alignContent: 'stretch'
             }}>
-                <form id='inputs' onChange={ updateParams }>
+                <form id='inputs' onChange={updateParams} style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.2rem',
+                    margin: '1rem',
+                }}>
                     <label htmlFor='map_size'>Map size</label>
                     <input type='number' min='8' max='256' step='8' name='map_size'/>
 
@@ -93,18 +98,16 @@ class UIRoot extends React.Component<UIRoot.Params> {
                     <label htmlFor='slugs'>Slimy Slug Holes</label>
                     <input type='range' name='slugs' id='slugs' min='0.0' max='0.01' step='0.0001'/>
 
+                    <div>
+                        <button id="randomize" onClick={ onRandomizeClicked }>Randomize Inputs</button>
+                        <button id="generate" onClick={ newMap }>Generate</button>
+                        <button id="download" onClick={ onDownloadClicked }>Download</button>
+                    </div>
                 </form>
                 <div style={{
                     margin: '0 20px'
                 }}>
-                    <p>
-                        <button id="randomize" onClick={ onRandomizeClicked }>Randomize Inputs</button>
-                        <button id="generate" onClick={ newMap }>Generate</button>
-                        <button id="download" onClick={ onDownloadClicked }>Download</button>
-                    </p>
-                    <p>
-                        <canvas id='canvas' width="800" height="800"></canvas>
-                    </p>
+                    <canvas id='canvas' width="800" height="800"></canvas>
                 </div>
             </div>
         </>;
