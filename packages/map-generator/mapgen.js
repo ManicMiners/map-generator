@@ -784,7 +784,7 @@ export class Mapgen {
     if (spaces.length < 1) {
       return false;
     }
-    spaces.sort(function(a, b){ return b.length - a.length; });
+    spaces.sort(function(a, b){ return a.length - b.length; });
     spaces.pop(0);
     for (
       var space, _pj_c = 0, _pj_a = spaces, _pj_b = _pj_a.length;

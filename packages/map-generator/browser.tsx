@@ -103,7 +103,7 @@ class UIRoot extends React.Component<UIRoot.Params> {
                         <button id="download" onClick={ onDownloadClicked }>Download</button>
                     </p>
                     <p>
-                        <canvas width="1000" height="1000"></canvas>
+                        <canvas id='canvas' width="800" height="800"></canvas>
                     </p>
                 </div>
             </div>
@@ -114,6 +114,7 @@ class UIRoot extends React.Component<UIRoot.Params> {
 
         // Initialize input values
         setInputValues();
+        generateMap();
     }
 }
 
@@ -188,10 +189,8 @@ function setInputValues() {
 }
 
 function generateMap() {
-    console.log('generateMap()');
 
     var success = map_generator.mapgen();
-    console.log(success);
 
     // console.log(document.getElementById('download').disabled);
     var downloadButton = document.getElementById('download');
@@ -203,6 +202,8 @@ function generateMap() {
         downloadButton!.disabled = true;
         downloadButton!.title = 'Can\'t save maps with no tool store';
     }
+
+    display();
 }
 
 let mapDownloaded = false;
@@ -218,7 +219,7 @@ function newMap() {
     const {success, map: _map} = attemptGenerationWithRetries(parameters);
     if(success) {
         map = _map;
-        map!.renderToCanvas(canvasElement);
+        // map!.renderToCanvas(canvasElement);
     }
 }
 
@@ -230,6 +231,83 @@ function onDownloadClicked() {
     mapDownloaded = true;
     const mapText = map.convertToMM();
     download(mapText, `${ parameters.name }_${ downloadCounter }.dat`);
+}
+
+// Display the map as a PNG
+function display() {
+
+    // Layers
+    var wallArray = map_generator.data.wall_array;
+    var crystalArray = map_generator.data.crystal_array;
+    var oreArray = map_generator.data.ore_array;
+
+    // Create the image
+    var canvasElement = document.getElementById('canvas');
+    var ctx = canvasElement.getContext('2d');
+    var scale = Math.floor(canvasElement.width / wallArray.length);
+    var offset = Math.floor(canvasElement.width % wallArray.length / 2);
+
+    // Color conversions
+    var colors = {
+        0:   'rgb(24, 0, 59)',  // Ground
+        1:  'rgb(166, 72, 233)',  // Dirt
+        2:  'rgb(139, 43, 199)',  // Loose Rock
+        3:  'rgb(108, 10, 163)',  // Hard Rock
+        4:  'rgb(59, 0, 108)',  // Solid Rock
+        6:  'rgb(6, 45, 182)',  // Water
+        7:   'rgb(239, 79, 16)',  // Lava
+        8:  'rgb(56, 44, 73)',  // Landslide rubble
+        9:  'rgb(150, 150, 0)',  // Slimy Slug hole
+        10:  'rgb(185, 255, 25)',  // Energy Crystal Seam
+        11:  'rgb(146, 62, 20)',  // Ore Seam
+        12:  'rgb(250, 255, 14)',  // Recharge Seam
+        13:  'rgb(190, 190, 190)',  // Building power path
+    }
+
+    // Clear the canvas
+    ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+    // Draw the background
+    ctx.fillStyle = 'black';
+    ctx.fillRect(
+        offset,
+        offset,
+        canvasElement.width - offset * 2,
+        canvasElement.height - offset * 2);
+
+    // Draw the tiles
+    for (var i = 0; i < wallArray.length; i++) {
+        for (var j = 0; j < wallArray[0].length; j++) {
+            // Draw the tile
+            ctx.fillStyle = colors[wallArray[i][j]];
+            ctx.fillRect(
+                j * scale + offset + 1,
+                i * scale + offset + 1,
+                scale - 1,
+                scale - 1
+            )
+
+            // Draw the crystal and ore indicators
+            if (crystalArray[i][j] > 0) {
+                ctx.fillStyle = colors[10];
+                ctx.fillRect(
+                    j * scale + offset + 2,
+                    i * scale + offset + 2,
+                    2,
+                    2
+                )
+            }
+            if (oreArray[i][j] > 0) {
+                ctx.fillStyle = colors[11];
+                ctx.fillRect(
+                    j * scale + offset + 5,
+                    i * scale + offset + 2,
+                    2,
+                    2
+                )
+            }
+        }
+    }
 }
 
 function download(data: string, filename: string) {
