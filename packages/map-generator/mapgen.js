@@ -458,7 +458,7 @@ export class Mapgen {
     MMtext += "objectives{\n";
     MMtext +=
       "resources: " +
-      min(Number.parseInt(crystalCount / 2), 999).toString() +
+      Math.min(Number.parseInt(crystalCount / 2), 999).toString() +
       ",0,0\n";
     MMtext += "}\n";
     MMtext += "buildings{\n";
@@ -556,7 +556,7 @@ export class Mapgen {
     MMtext += "briefing{\n";
     MMtext +=
       "You must collect " +
-      min(Number.parseInt(crystalCount / 2), 999).toString() +
+      Math.min(Number.parseInt(crystalCount / 2), 999).toString() +
       " energy crystals.  \n";
     MMtext += "}\n";
     return MMtext;
