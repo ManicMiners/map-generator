@@ -1,38 +1,16 @@
-import { observer } from "mobx-react"
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Mapgen } from './mapgen';
-import { attemptGenerationWithRetries, mapgen, MapGenResult } from "./map-generator";
-import { generateDefaultParameters, inputs, Parameters, parse } from "./parameters";
-import * as hashed from 'hashed';
-import { autorun } from "mobx";
-import { isBoolean, isNumber, isString } from "lodash";
 
-let parameters: Parameters = new Parameters();
-let map: MapGenResult = null;
 let map_generator = new Mapgen();
-
-function T<T>(t: T) { return t }
-function TI<T>() { return function<I extends T>(i: I) {return i} }
 
 window.addEventListener('load', onLoad);
 function onLoad() {
 
-    window.map_generator = map_generator;
-
-    randomizeParams();
-
     renderRoot();
 }
 
-namespace UIRoot {
-    export interface Params {
-        parameters: Parameters;
-    }
-}
-
-@observer
-class UIRoot extends React.Component<UIRoot.Params> {
+class UIRoot extends React.Component {
     render() {
         return <>
             <div style={{
@@ -123,7 +101,7 @@ class UIRoot extends React.Component<UIRoot.Params> {
 
 function renderRoot() {
     ReactDOM.render(
-        <UIRoot parameters={parameters} />,
+        <UIRoot/>,
         document.getElementById('render-here')
     );
 }
@@ -135,16 +113,6 @@ function onRandomizeClicked() {
     map_generator.parameters.size = size;
     setInputValues();
     newMap();
-    randomizeParams();
-}
-
-function randomizeParams() {
-    Object.assign(parameters, generateDefaultParameters());
-    logParams();
-}
-
-function logParams() {
-    console.log(parameters);
 }
 
 // Update the mapgen parameters with the input values
@@ -209,34 +177,20 @@ function generateMap() {
     display();
 }
 
-let mapDownloaded = false;
 
 function newMap() {
     // Generate a new seed
     map_generator.seed = Math.random();
 
     generateMap();
-
-    mapDownloaded = false;
-    const canvasElement = $('canvas')[0] as HTMLCanvasElement;
-    const {success, map: _map} = attemptGenerationWithRetries(parameters);
-    if(success) {
-        map = _map;
-        // map!.renderToCanvas(canvasElement);
-    }
 }
 
-let downloadCounter = 0;
 function onDownloadClicked() {
     download(map_generator.mm_text(), 'generatedMap.dat');
     return;
-    if(!mapDownloaded) downloadCounter++;
-    mapDownloaded = true;
-    const mapText = map.convertToMM();
-    download(mapText, `${ parameters.name }_${ downloadCounter }.dat`);
 }
 
-// Display the map as a PNG
+// Display the map
 function display() {
 
     // Layers
