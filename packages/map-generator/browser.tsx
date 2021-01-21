@@ -21,67 +21,74 @@ class UIRoot extends React.Component {
                 alignItems: 'stretch',
                 alignContent: 'stretch'
             }}>
-                <form id='inputs' onChange={updateParams} style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '0.2rem',
-                    margin: '1rem',
-                }}>
-                    <label htmlFor='map_size'>Map size</label>
-                    <input type='number' min='8' max='256' step='8' name='map_size'/>
-
-                    <label htmlFor='biome'>Biome</label>
-                    <select name='biome' id='biome'>
-                        <option value='rock'>Rock</option>
-                        <option value='ice'>Ice</option>
-                        <option value='lava'>Lava</option>
-                    </select>
-
-                    <label htmlFor='solid_rock'>Solid Rock</label>
-                    <input type='range' name='solid_rock' id='solid_rock' min='0.2' max='0.6' step='0.004'/>
-
-                    <label htmlFor='other_rock'>Other Rock</label>
-                    <input type='range' name='other_rock' id='other_rock' min='0.2' max='0.6' step='0.004'/>
-
-                    <label htmlFor='energy_crystals'>Energy Crystals</label>
-                    <input type='range' name='energy_crystals' id='energy_crystals' min='0.0' max='0.8' step='0.008'/>
-
-                    <label htmlFor='ore'>Ore</label>
-                    <input type='range' name='ore' id='ore' min='0.0' max='0.8' step='0.008'/>
-
-                    <label htmlFor='ecs'>Energy Crystal Seams</label>
-                    <input type='range' name='ecs' id='ecs' min='0.0' max='0.6' step='0.006'/>
-
-                    <label htmlFor='os'>Ore Seams</label>
-                    <input type='range' name='os' id='os' min='0.0' max='0.6' step='0.006'/>
-
-                    <label htmlFor='rs'>Recharge Seams</label>
-                    <input type='range' name='rs' id='rs' min='0.0' max='0.3' step='0.003'/>
-
-                    <label htmlFor='flood_level'>Water/Lava Flood Level</label>
-                    <input type='range' name='flood_level' id='flood_level' min='0.0' max='1.0' step='0.01'/>
-
-                    <label htmlFor='flood_type'>Water or Lava</label>
-                    <select name='flood_type' id='flood_type'>
-                        <option value='water'>Water</option>
-                        <option value='lava'>Lava</option>
-                    </select>
-
-                    <label htmlFor='erosion_sources'>Erosion Sources</label>
-                    <input type='range' name='erosion_sources' id='erosion_sources' min='0.0' max='0.01' step='0.0001'/>
-
-                    <label htmlFor='landslide_sources'>Landslide Sources</label>
-                    <input type='range' name='landslide_sources' id='landslide_sources' min='0.0' max='0.4' step='0.004'/>
-
-                    <label htmlFor='slugs'>Slimy Slug Holes</label>
-                    <input type='range' name='slugs' id='slugs' min='0.0' max='0.01' step='0.0001'/>
-
-                    <div>
+                <div id='left-side'>
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        gap: '0.2rem',
+                        margin: '1rem',
+                    }}>
                         <button id="randomize" onClick={ onRandomizeClicked }>Randomize Inputs</button>
                         <button id="generate" onClick={ newMap }>Generate</button>
                         <button id="download" onClick={ onDownloadClicked }>Download</button>
                     </div>
-                </form>
+                    <form id='inputs' onChange={updateParams} style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.2rem',
+                        margin: '1rem',
+                    }}>
+                        <label htmlFor='map_size'>Map size</label>
+                        <input type='number' min='8' max='256' step='8' name='map_size'/>
+
+                        <label htmlFor='biome'>Biome</label>
+                        <select name='biome' id='biome'>
+                            <option value='rock'>Rock</option>
+                            <option value='ice'>Ice</option>
+                            <option value='lava'>Lava</option>
+                        </select>
+
+                        <label htmlFor='solid_rock'>Solid Rock</label>
+                        <input type='range' name='solid_rock' id='solid_rock' min='0.2' max='0.6' step='0.004'/>
+
+                        <label htmlFor='other_rock'>Other Rock</label>
+                        <input type='range' name='other_rock' id='other_rock' min='0.2' max='0.6' step='0.004'/>
+
+                        <label htmlFor='energy_crystals'>Energy Crystals</label>
+                        <input type='range' name='energy_crystals' id='energy_crystals' min='0.0' max='0.8' step='0.008'/>
+
+                        <label htmlFor='ore'>Ore</label>
+                        <input type='range' name='ore' id='ore' min='0.0' max='0.8' step='0.008'/>
+
+                        <label htmlFor='ecs'>Energy Crystal Seams</label>
+                        <input type='range' name='ecs' id='ecs' min='0.0' max='0.6' step='0.006'/>
+
+                        <label htmlFor='os'>Ore Seams</label>
+                        <input type='range' name='os' id='os' min='0.0' max='0.6' step='0.006'/>
+
+                        <label htmlFor='rs'>Recharge Seams</label>
+                        <input type='range' name='rs' id='rs' min='0.0' max='0.3' step='0.003'/>
+
+                        <label htmlFor='flood_level'>Water/Lava Flood Level</label>
+                        <input type='range' name='flood_level' id='flood_level' min='0.0' max='1.0' step='0.01'/>
+
+                        <label htmlFor='flood_type'>Water or Lava</label>
+                        <select name='flood_type' id='flood_type'>
+                            <option value='water'>Water</option>
+                            <option value='lava'>Lava</option>
+                        </select>
+
+                        <label htmlFor='erosion_sources'>Erosion Sources</label>
+                        <input type='range' name='erosion_sources' id='erosion_sources' min='0.0' max='0.01' step='0.0001'/>
+
+                        <label htmlFor='landslide_sources'>Landslide Sources</label>
+                        <input type='range' name='landslide_sources' id='landslide_sources' min='0.0' max='0.4' step='0.004'/>
+
+                        <label htmlFor='slugs'>Slimy Slug Holes</label>
+                        <input type='range' name='slugs' id='slugs' min='0.0' max='0.01' step='0.0001'/>
+
+                    </form>
+                </div>
                 <div style={{
                     margin: '0 20px'
                 }}>
