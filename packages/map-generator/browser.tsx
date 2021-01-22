@@ -1,14 +1,23 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import * as hashed from 'hashed';
 import { Mapgen } from './mapgen';
 
 let map_generator = new Mapgen();
+var loaded = false;
 
-window.addEventListener('load', onLoad);
-function onLoad() {
-
-    renderRoot();
+// Update parameters from the hash
+function listener(newState) {
+    Object.assign(map_generator.parameters, newState);
+    if (loaded) {
+        generateMap();
+    }
 }
+
+// register a state provider
+const update = hashed.register(map_generator.parameters, listener);
+
+window.addEventListener('load', renderRoot);
 
 class UIRoot extends React.Component {
     render() {
@@ -111,6 +120,7 @@ function renderRoot() {
         <UIRoot/>,
         document.getElementById('render-here')
     );
+    loaded = true;
 }
 
 function onRandomizeClicked() {
@@ -170,7 +180,6 @@ function generateMap() {
 
     var success = map_generator.mapgen();
 
-    // console.log(document.getElementById('download').disabled);
     var downloadButton = document.getElementById('download');
     if (success) {
         downloadButton!.disabled = false;
@@ -181,6 +190,11 @@ function generateMap() {
         downloadButton!.title = 'Can\'t save maps with no tool store';
     }
 
+    // Synchronize the hash and the form
+    setInputValues();
+    update(map_generator.parameters);
+
+    // Render the preview
     display();
 }
 
