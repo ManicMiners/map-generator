@@ -830,9 +830,11 @@ export class Mapgen {
     }
     caveList = this.openSpaces(tmap, true);
     for (var i = 0, _pj_a = caveList.length; i < _pj_a; i += 1) {
-      if (_pj.in_es6(base, caveList[i])) {
-        caveList.pop(i);
-        break;
+      for (var j = 0; j < caveList[i].length; j++) {
+        if (base[0] == caveList[i][j][0] && base[1] == caveList[i][j][1]) {
+          caveList.splice(i, 1);
+          return caveList;
+        }
       }
     }
     return caveList;
