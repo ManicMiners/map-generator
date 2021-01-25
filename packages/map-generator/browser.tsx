@@ -4,6 +4,7 @@ import * as hashed from 'hashed';
 import { Mapgen } from './mapgen';
 
 let map_generator = new Mapgen();
+map_generator.parameters.seed = map_generator.seed;
 var loaded = false;
 
 // Update parameters from the hash
@@ -12,6 +13,9 @@ function listener(newState) {
     if (loaded) {
         generateMap();
     }
+
+    // Apply the random seed
+    map_generator.seed = map_generator.parameters.seed;
 }
 
 // register a state provider
@@ -193,6 +197,9 @@ function generateMap() {
 function newMap() {
     // Generate a new seed
     map_generator.seed = Math.random();
+
+    map_generator.parameters.seed = map_generator.seed;
+    console.log(map_generator.parameters);
 
     generateMap();
 }
