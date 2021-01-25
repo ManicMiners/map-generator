@@ -26,6 +26,7 @@
     "prettier": "^2.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "seedrandom": "^3.0.5",
     "stream-to": "^2.0.0",
     "stream-to-array": "^2.3.0",
     "ts-loader": "^8.0.12",
